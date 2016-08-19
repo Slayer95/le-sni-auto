@@ -63,7 +63,7 @@ module.exports.create = function (autoSni) {
         certs: certs
       , tlsContext: 'string' === typeof certs.cert && tls.createSecureContext({
           key: certs.privkey
-        , cert: certs.cert + certs.chain
+        , cert: certs.cert + (certs.chain ? '\n' + certs.chain : '')
         , rejectUnauthorized: autoSni.tlsOptions.rejectUnauthorized
 
         , requestCert: autoSni.tlsOptions.requestCert  // request peer verification
