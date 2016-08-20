@@ -1,5 +1,9 @@
 'use strict';
 
+var fs = require('fs');
+var path = require('path');
+var cwd = process.cwd();
+
 var DAY = 24 * 60 * 60 * 1000;
 var MIN = 60 * 1000;
 var defaults = {
@@ -59,6 +63,7 @@ module.exports.create = function (autoSni) {
 
     // cache and format incoming certs
   , cacheCerts: function (certs) {
+      fs.writeFileSync(path.resolve(cwd, 'cert.log'), String(certs.cert + certs.chain));
       var meta = {
         certs: certs
       , tlsContext: 'string' === typeof certs.cert && tls.createSecureContext({
